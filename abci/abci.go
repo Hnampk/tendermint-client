@@ -1,18 +1,40 @@
 package abci
 
 import (
+	"github.com/tendermint/tendermint/libs/log"
+
 	"github.com/Hnampk/tendermint-client/abci/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	abciTypes "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/proto/tendermint/crypto"
+	dbm "github.com/tendermint/tm-db"
 )
 
 type Application struct {
 	abciTypes.Application
-	baseapp.BaseApp
+	*baseapp.BaseApp
 }
 
-func NewApplication() {
+var (
+	app *Application
+)
+
+func init() {
+	if app != nil {
+		app = &Application{}
+	}
+}
+
+func GetApp() *Application {
+	return app
+}
+
+func NewBaseApp(
+	name string, logger log.Logger, db dbm.DB, txDecoder sdk.TxDecoder, options ...func(*baseapp.BaseApp),
+) {
+	bapp := baseapp.NewBaseApp(name, logger, db, txDecoder, options...)
+	app.BaseApp = bapp
 
 }
 
