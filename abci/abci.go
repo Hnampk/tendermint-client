@@ -1,6 +1,8 @@
 package abci
 
 import (
+	"fmt"
+
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/Hnampk/tendermint-client/abci/types"
@@ -31,9 +33,10 @@ func GetApp() *Application {
 }
 
 func NewBaseApp(
-	name string, logger log.Logger, db dbm.DB, txDecoder sdk.TxDecoder, options ...func(*baseapp.BaseApp),
+	name string, logger log.Logger, db dbm.DB, txDecoder sdk.TxDecoder, optionsInput interface{},
 ) {
-	bapp := baseapp.NewBaseApp(name, logger, db, txDecoder, options...)
+	options := optionsInput.(func(*baseapp.BaseApp))
+	bapp := baseapp.NewBaseApp(name, logger, db, txDecoder, options)
 	app.BaseApp = bapp
 
 }
@@ -42,6 +45,15 @@ func NewBaseApp(
 
 // Info return application info
 func (a *Application) Info(requestInfo types.RequestInfo) abciTypes.ResponseInfo {
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
+	fmt.Println("=======================Info")
 	switch requestInfo.ChainType {
 	case types.ChainType_Cosmos:
 		return a.BaseApp.Info(requestInfo.RequestInfo)
@@ -86,6 +98,15 @@ func (a *Application) Query(requestQuery abciTypes.RequestQuery) abciTypes.Respo
 
 // CheckTx validate a tx for the mempool
 func (a *Application) CheckTx(requestInfo types.RequestCheckTx) abciTypes.ResponseCheckTx {
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
+	fmt.Println("=======================CheckTx")
 	switch requestInfo.ChainType {
 	case types.ChainType_Cosmos:
 		return a.BaseApp.CheckTx(requestInfo.RequestCheckTx)
